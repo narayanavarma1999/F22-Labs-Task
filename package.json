@@ -1,0 +1,39 @@
+{
+  "name": "f22-labs-task",
+  "version": "1.0.0",
+  "description": "Task 3: Product Inventory Manager  Goal  Expose basic product and category management with validation and relational lookup. Context  You are building an internal inventory service for a small shop. No auth needed. Database Schema  Minimum required tables:  categories  ● id (auto)  ● name (string, required, unique-ish is nice to have)  products  ● id (auto)  ● name (string, required)  ● price (number > 0)  ● category_id (foreign key to categories.id)  ● created_at (timestamp)  Requirements  Endpoints  POST /categories  Request:  { \"name\": \"Electronics\" } 1.  ○ name required, ≥ 3 chars.  Response:  ○ 201 Created with new category.  POST /products  Request:  {   \"name\": \"iPhone 16\",   \"price\": 1299,   \"categoryId\": 1  }  2. Rules:  ○ name required, ≥ 3 chars.  ○ price required, must be > 0.  ○ categoryId must exist in categories.  3. Response:  ○ 201 Created with the saved product.  4. GET /products  Return a list of products with their category name, e.g.:  [   {   \"id\": 5,   \"name\": \"iPhone 16\",   \"price\": 1299,   \"category\": \"Electronics\",   \"createdAt\": \"2025-10-24T10:00:00Z\"   } ]  5. PUT /products/:id  ○ Allow updating name and/or price.  ○ Must still validate (e.g. price > 0).  ○ Return 404 if product not found.  Bonus (optional)  5. GET /categories/:",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/narayanavarma1999/F22-Labs-Task.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/narayanavarma1999/F22-Labs-Task/issues"
+  },
+  "homepage": "https://github.com/narayanavarma1999/F22-Labs-Task#readme",
+  "dependencies": {
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2",
+    "express": "^5.1.0",
+    "mysql2": "^3.15.3",
+    "nodemon": "^3.1.10",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.27"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.5",
+    "@types/node": "^24.9.2",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
+  }
+}
