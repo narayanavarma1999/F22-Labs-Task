@@ -44,34 +44,50 @@ export const getAllProducts = async (req: Request, res: Response) => {
   }
 };
 
+
 export const updateProduct = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { name, price } = req.body;
 
+    const productId = parseInt(id);
+    if (isNaN(productId)) {
+      return res.status(400).json({ message: "Invalid product ID" });
+    }
+
     const product = await productRepo.findOne({
-      where: { id: parseInt(id) },
+      where: { id: productId },
       relations: ["category"],
     });
+
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    if (name) product.name = name;
-    if (price) product.price = price;
+    if (name !== undefined) product.name = name;
+    if (price !== undefined) product.price = price;
 
     const errors = await validate(product);
-    if (errors.length > 0){
-      res
-        .status(400)
-        .json({ error: `Failed To Update the Product with id:${id}` });
+    if (errors.length > 0) {
+      return res.status(400).json({
+        message: "Validation failed",
+        errors: errors.map((e) => e.constraints),
+      });
     }
 
-    const updated = await productRepo.save(product);
-    return res.json(updated);
+    const updatedProduct = await productRepo.save(product);
+
+    return res.status(200).json({
+      message: `Product with id:${id} updated successfully`,
+      data: updatedProduct,
+    });
   } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: "Internal Server Error", err: error.message });
+    console.error("Update Product Error:", error);
+    return res.status(500).json({
+      message: "Internal Server Error",
+      error: error.message,
+    });
   }
 };
+
+

@@ -25,7 +25,7 @@ export class Product {
   @Length(3, 50, {
     message: "Category name must be between 2 and 50 characters",
   })
-  name: string|undefined;
+  name!: string;
 
   @Column("decimal", { precision: 10, scale: 2 })
   @IsNumber({}, { message: "Price must be a number" })
