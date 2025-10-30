@@ -24,11 +24,11 @@ app.use(requestLogger);
 
 AppDataSource.initialize()
   .then(() => {
-    console.log("✅ Connected to MySQL Database");
+    console.log("Connected to MySQL Database");
   })
   .catch((error) => console.error("DB Connection Error:", error));
 
-// Routes
+// product and category routes
 app.use("/categories", categoryRoutes);
 app.use("/products", productRoutes);
 

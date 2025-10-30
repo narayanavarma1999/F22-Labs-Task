@@ -64,6 +64,48 @@ Product
 
 Category
 
-and created end points for creating category and products as below
+and created end points for creating category and products as below are the attached curl endpoints with data
+
+
+
+// for creating a new category
+
+curl --location 'localhost:8000/categories' \
+--header 'Content-Type: application/json' \
+--data '{
+    "name": "Electronics"
+}'
+
+
+// for creating a new product
+
+curl --location 'http://localhost:8000/products' \
+--header 'Content-Type: application/json' \
+--data '{ 
+ "name": "iPhone 16", 
+ "price": 1299, 
+ "categoryId": 1 
+} 
+'
+
+// for fetching all products
+
+curl --location --request GET 'localhost:8000/products' \
+--header 'Content-Type: application/json' \
+--data '{ 
+ "name": "iPhone 16", 
+ "price": 1299, 
+ "categoryId": 1 
+} 
+'
+
+// for updating a product based on productId
+
+curl --location --request PUT 'localhost:8000/products/1 ' \
+--header 'Content-Type: application/json' \
+--data '{
+    "name":"Samsung",
+    "price":20
+}'
 
 

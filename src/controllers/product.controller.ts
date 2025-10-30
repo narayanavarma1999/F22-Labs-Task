@@ -24,7 +24,7 @@ export const createProduct = async (req: Request, res: Response) => {
     }
 
     const saved = await productRepo.save(product);
-    res.json(saved);
+    res.status(201).json(saved);
   } catch (err) {
     res.status(500).json({ message: "Internal Server Error", error: err });
   }
@@ -52,7 +52,7 @@ export const updateProduct = async (req: Request, res: Response) => {
 
     const productId = parseInt(id);
     if (isNaN(productId)) {
-      return res.status(400).json({ message: "Invalid product ID" });
+      return res.status(404).json({ message: "Invalid product ID" });
     }
 
     const product = await productRepo.findOne({
